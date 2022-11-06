@@ -69,7 +69,7 @@ function Signup({ login }) {
       let data = {
         Name: name, username: a[0], email, password
       }
-      let res = await fetch("https://aqueous-crag-08640.herokuapp.com/api/auth/local/register", {
+      let res = await fetch("http://localhost:1337/api/auth/local/register", {
         method: "POST",
         headers: {
           'content-type': 'application/json',

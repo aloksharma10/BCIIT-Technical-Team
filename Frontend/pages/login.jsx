@@ -5,10 +5,13 @@ import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { FcGoogle } from 'react-icons/fc';
+import { useCookies } from "react-cookie"
 
 function Login({ login }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [cookie, setCookie] = useCookies(["user"])
+  
   const router = useRouter()
   useEffect(() => {
     if (login) {
@@ -27,7 +30,7 @@ function Login({ login }) {
       }, 1000);
     }
   }, [login])
-  
+
   const handleChange = (e) => {
     if (e.target.name == "email") { setEmail(e.target.value) }
     if (e.target.name == "password") { setPassword(e.target.value) }
@@ -37,7 +40,7 @@ function Login({ login }) {
     let data = {
       identifier: email, password
     }
-    let res = await fetch("https://aqueous-crag-08640.herokuapp.com/api/auth/local", {
+    let res = await fetch("http://localhost:1337/api/auth/local", {
       method: "POST",
       headers: {
         'content-type': 'application/json'
@@ -69,7 +72,12 @@ function Login({ login }) {
         theme: "light",
       });
       localStorage.setItem("token", resData.jwt);
-      localStorage.setItem("user", resData.user.username);
+      setCookie("user", resData.jwt, {
+        path: "/",
+        maxAge: 3600, // Expires after 1hr
+        sameSite: true,
+      })
+      localStorage.setItem("user", JSON.stringify(resData.user));
       setTimeout(() => {
         router.push("/")
       }, [1000]);
@@ -98,7 +106,7 @@ function Login({ login }) {
           <div className="px-0 lg:pl-4 flex items-center lg:mx-4 cursor-pointer text-3xl font-bold my-5">
             <Link href="/">Welcome to FlashCard</Link>
           </div>
-          <Link href={'https://aqueous-crag-08640.herokuapp.com/api/connect/google'} >
+          <Link href={'http://localhost:1337/api/connect/google'} >
             <div className='flex cursor-pointer bg-red-100 dark:bg-slate-900 font-medium rounded-lg text-lg justify-center px-5 py-2 text-center"' role="button" >
               <FcGoogle className='text-3xl mx-3' /><span className="">Sign in with Google</span>
             </div>

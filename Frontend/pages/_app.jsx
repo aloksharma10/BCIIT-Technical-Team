@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { ThemeProvider } from 'next-themes'
+import User from '../components/User'
 
 
 function MyApp({ Component, pageProps }) {
@@ -13,6 +14,7 @@ function MyApp({ Component, pageProps }) {
   const [login, setLogin] = useState(false)
   const [key, setKey] = useState()
   const router = useRouter()
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     router.events.on('routeChangeComplete', () => {
@@ -22,13 +24,13 @@ function MyApp({ Component, pageProps }) {
       setProgress(40)
     })
 
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('user')) {
+      let userTkn = localStorage.getItem('token')
+      setUser(userTkn)
       setLogin(true)
       setKey(Math.random())
     }
-
   }, [router.query])
-
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -45,6 +47,36 @@ function MyApp({ Component, pageProps }) {
     });
     setLogin(false)
   }
+  let initTodo;
+  if (localStorage.getItem("todos") === null) {
+    initTodo = [];
+  }
+  else {
+    initTodo = JSON.parse(localStorage.getItem("todos"));
+  }
+
+
+  const onDelete = (todo) => {
+    setTodos(todos.filter((e) => {
+      return e !== todo;
+    }));
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
+
+  const addTodo = (Category,usersId, CardText) => {
+    const myTodo = {
+      Category: Category,
+      CardText: CardText,
+      users_permissions_user: usersId
+    }
+    setTodos([...todos, myTodo]);
+  }
+
+  const [todos, setTodos] = useState(initTodo);
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
+
   return <>
     <ThemeProvider attribute='class'>
       <LoadingBar
@@ -55,10 +87,12 @@ function MyApp({ Component, pageProps }) {
         height={3}
       />
       <Navbar login={login} key={key} logout={handleLogout} />
-      <Component {...pageProps} login={login} />
+      <User />
+      <Component {...pageProps} login={login} user={user} card={todos} addTodo={addTodo} onDelete={onDelete} />
       <Footer />
     </ThemeProvider>
   </>
 }
 
 export default MyApp
+
