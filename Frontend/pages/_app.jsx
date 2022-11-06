@@ -47,35 +47,7 @@ function MyApp({ Component, pageProps }) {
     });
     setLogin(false)
   }
-  let initTodo;
-  if (localStorage.getItem("todos") === null) {
-    initTodo = [];
-  }
-  else {
-    initTodo = JSON.parse(localStorage.getItem("todos"));
-  }
 
-
-  const onDelete = (todo) => {
-    setTodos(todos.filter((e) => {
-      return e !== todo;
-    }));
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }
-
-  const addTodo = (Category,usersId, CardText) => {
-    const myTodo = {
-      Category: Category,
-      CardText: CardText,
-      users_permissions_user: usersId
-    }
-    setTodos([...todos, myTodo]);
-  }
-
-  const [todos, setTodos] = useState(initTodo);
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos])
 
   return <>
     <ThemeProvider attribute='class'>
@@ -88,7 +60,7 @@ function MyApp({ Component, pageProps }) {
       />
       <Navbar login={login} key={key} logout={handleLogout} />
       <User />
-      <Component {...pageProps} login={login} user={user} card={todos} addTodo={addTodo} onDelete={onDelete} />
+      <Component {...pageProps} login={login} user={user} />
       <Footer />
     </ThemeProvider>
   </>

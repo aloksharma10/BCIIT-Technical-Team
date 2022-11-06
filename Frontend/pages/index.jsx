@@ -9,7 +9,7 @@ import Mymodal from '../components/Mymodal'
 import Cookies from 'cookies'
 
 
-export default function Home({ addTodo, todos, fetchData }) {
+export default function Home({ fetchData }) {
     const router = useRouter()
     const [modal, setModal] = useState(false)
     console.log(fetchData)
@@ -18,6 +18,38 @@ export default function Home({ addTodo, todos, fetchData }) {
         setModal(false)
     }
     // &sort=id:desc
+
+
+    let initTodo;
+//   if (localStorage.getItem("todos") === null) {
+//     initTodo = [];
+//   }
+//   else {
+//     initTodo = JSON.parse(localStorage.getItem("todos"));
+//   }
+
+
+  const onDelete = (todo) => {
+    setTodos(todos.filter((e) => {
+      return e !== todo;
+    }));
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
+
+  const addTodo = (Category,usersId, CardText) => {
+    const myTodo = {
+      Category: Category,
+      CardText: CardText,
+      users_permissions_user: usersId
+    }
+    setTodos([...todos, myTodo]);
+  }
+
+  const [todos, setTodos] = useState(initTodo);
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
+
     return (
         <>
             <Head><title>Welcome to Flash Notes || Easy to use</title></Head>
@@ -30,7 +62,7 @@ export default function Home({ addTodo, todos, fetchData }) {
                     <p className="md:w-2/4 mb-5 mx-auto text-center text-base text-gray-600 dark:text-gray-400 leading-7 font-semibold">There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form.</p>
                 </div>
                 <div className="flex flex-wrap justify-center mx-6 ">
-                    {fetchData.categories.map((item) => {
+                    {fetchData && fetchData.categories.map((item) => {
                         return (
                             <div key={item.id} className="p-4 lg:w-1/3">
                                 <Mymodal showModal={modal} handleClose={handleClose} />
