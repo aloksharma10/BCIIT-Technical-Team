@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body{
+        @apply dark:bg-slate-800
+    }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    /* display: none; */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(184, 181, 181);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(66, 65, 65);
+}
