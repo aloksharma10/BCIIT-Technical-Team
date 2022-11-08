@@ -145,7 +145,7 @@ function Signup({ login }) {
           <div className="px-0 lg:pl-4 flex items-center lg:mx-4 cursor-pointer text-3xl font-bold my-5">
             <Link href="/">Welcome to FlashCard</Link>
           </div>
-          <Link href={'https://aqueous-crag-08640.herokuapp.com/api/connect/google'}>
+          <Link href={'http://localhost:1337/api/connect/google'}>
             <div className='flex bg-red-100 dark:bg-slate-900 font-medium rounded-lg text-lg justify-center px-5 py-2 text-center"' role="button" >
               <FcGoogle className='text-3xl mx-3' /><span className="">Sign up with Google</span>
             </div>
