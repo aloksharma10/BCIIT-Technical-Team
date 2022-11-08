@@ -14,7 +14,7 @@
   "attributes": {
     "Category": {
       "type": "string",
-      "required": true,
+      "required": false,
       "unique": false
     },
     "users_permissions_user": {
