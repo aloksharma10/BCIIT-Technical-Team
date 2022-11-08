@@ -40,49 +40,62 @@ function Login({ login }) {
     let data = {
       identifier: email, password
     }
-    let res = await fetch("http://localhost:1337/api/auth/local", {
-      method: "POST",
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    let resData = await res.json()
-    if (resData.data == null && resData.jwt == null) {
-      toast.error('Invalid Credential!', {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    else if (resData.jwt) {
-      toast.success('You are logged in!', {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      localStorage.setItem('user',JSON.stringify(resData.user))
-      setCookie("userdata", resData.user);
-      setCookie("usertkn", resData.jwt, {
-        path: "/",
-        maxAge: 3600, 
-        sameSite: true,
+    try {
+      let res = await fetch("http://localhost:1337/api/auth/local", {
+        method: "POST",
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
       })
-      setTimeout(() => {
-        router.push("/")
-      }, [1000]);
-      setEmail('')
-      setPassword('')
+      let resData = await res.json()
+      if (resData.data == null && resData.jwt == null) {
+        toast.error('Invalid Credential!', {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else if (resData.jwt) {
+        toast.success('You are logged in!', {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        localStorage.setItem('user',JSON.stringify(resData.user))
+        setCookie("userdata", resData.user);
+        setCookie("usertkn", resData.jwt, {
+          path: "/",
+          maxAge: 3600, 
+          sameSite: true,
+        })
+        setTimeout(() => {
+          router.push("/")
+        }, [1000]);
+        setEmail('')
+        setPassword('')
+      }
+    } catch (error) {
+      toast.error('Internal Server Error!', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   }
 

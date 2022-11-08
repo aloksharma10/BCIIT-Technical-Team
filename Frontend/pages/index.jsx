@@ -17,7 +17,7 @@ export default function Home({ NotesData }) {
     let router = useRouter()
     const [modal, setModal] = useState(false)
     const [cookie, setCookie] = useCookies(['usertkn'])
-    const [fetchData, setFetchData] = useState(NotesData !== undefined ? [...NotesData].reverse() : null)
+    const [fetchData, setFetchData] = useState(NotesData?[...NotesData].reverse():[])
 
     const handleClose = () => {
         setModal(false)
@@ -271,14 +271,20 @@ export default function Home({ NotesData }) {
 export async function getServerSideProps({ context, req, res }) {
     const cookies = new Cookies(req, res)
     let token = cookies.get('usertkn')
-    let Data = await fetch('http://localhost:1337/api/users/me?populate=*', {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    let fetchData = await Data.json()
-    let NotesData = fetchData.categories
+    let NotesData=null;
+    try {
+        let Data = await fetch('http://localhost:1337/api/users/me?populate=*', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        let fetchData = await Data.json()
+        NotesData = fetchData.categories
+        
+    } catch (error) {
+        console.log("internal server error")
+    }
     return {
         props: { NotesData },
     }

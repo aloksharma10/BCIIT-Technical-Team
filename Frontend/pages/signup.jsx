@@ -69,16 +69,47 @@ function Signup({ login }) {
       let data = {
         Name: name, username: a[0], email, password
       }
-      let res = await fetch("http://localhost:1337/api/auth/local/register", {
-        method: "POST",
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      })
-      let resData = await res.json()
-      if (resData.jwt) {
-        toast.success('Your account has been created successfully.', {
+      try {
+        let res = await fetch("http://localhost:1337/api/auth/local/register", {
+          method: "POST",
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        })
+        let resData = await res.json()
+        if (resData.jwt) {
+          toast.success('Your account has been created successfully.', {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+        else {
+          toast.error("Email is already taken!", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+  
+        }
+        setName('')
+        setEmail('')
+        setPassword('')
+        setCpassword('')
+        
+      } catch (error) {
+        toast.error("Internal Server Error!", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: false,
@@ -89,23 +120,6 @@ function Signup({ login }) {
           theme: "light",
         });
       }
-      else {
-        toast.error("Email is already taken!", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-
-      }
-      setName('')
-      setEmail('')
-      setPassword('')
-      setCpassword('')
     }
 
   }
