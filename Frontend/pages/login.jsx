@@ -10,7 +10,7 @@ import { useCookies } from "react-cookie"
 function Login({ login }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [cookie, setCookie] = useCookies(["user"])
+  const [cookie, setCookie] = useCookies(['usertkn'])
   
   const router = useRouter()
   useEffect(() => {
@@ -71,13 +71,13 @@ function Login({ login }) {
         progress: undefined,
         theme: "light",
       });
-      localStorage.setItem("token", resData.jwt);
-      setCookie("user", resData.jwt, {
+      localStorage.setItem('user',JSON.stringify(resData.user))
+      setCookie("userdata", resData.user);
+      setCookie("usertkn", resData.jwt, {
         path: "/",
-        maxAge: 3600, // Expires after 1hr
+        maxAge: 3600, 
         sameSite: true,
       })
-      localStorage.setItem("user", JSON.stringify(resData.user));
       setTimeout(() => {
         router.push("/")
       }, [1000]);

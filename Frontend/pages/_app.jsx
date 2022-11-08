@@ -1,12 +1,11 @@
 import '../styles/globals.css'
-import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import LoadingBar from 'react-top-loading-bar'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { ThemeProvider } from 'next-themes'
-import User from '../components/User'
+import { useCookies } from "react-cookie"
 
 
 function MyApp({ Component, pageProps }) {
@@ -14,6 +13,7 @@ function MyApp({ Component, pageProps }) {
   const [login, setLogin] = useState(false)
   const [key, setKey] = useState()
   const router = useRouter()
+  const [cookie, setCookie, removeCookie] = useCookies(['usertkn'])
   const [user, setUser] = useState({})
 
   useEffect(() => {
@@ -25,16 +25,16 @@ function MyApp({ Component, pageProps }) {
     })
 
     if (localStorage.getItem('user')) {
-      let userTkn = localStorage.getItem('token')
-      setUser(userTkn)
       setLogin(true)
+      setUser(cookie.user)
       setKey(Math.random())
     }
   }, [router.query])
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem('user')
+    removeCookie("userdata");
+    removeCookie('usertkn');
     toast.success("You are successfully logout", {
       position: "top-right",
       autoClose: 1500,
@@ -45,6 +45,7 @@ function MyApp({ Component, pageProps }) {
       progress: undefined,
       theme: "light",
     });
+    router.push('/login')
     setLogin(false)
   }
 
@@ -59,9 +60,7 @@ function MyApp({ Component, pageProps }) {
         height={3}
       />
       <Navbar login={login} key={key} logout={handleLogout} />
-      <User />
       <Component {...pageProps} login={login} user={user} />
-      <Footer />
     </ThemeProvider>
   </>
 }
