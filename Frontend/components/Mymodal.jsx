@@ -4,6 +4,8 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 function Mymodal({ showModal, handleClose, enote, updateNotes }) {
     const [text, setText] = useState(enote.CardText)
     const [category, setCategory] = useState(enote.Category)
+    console.log(enote.CardText)
+    console.log(text)
     if (!showModal) {
         return null
     }
@@ -14,22 +16,19 @@ function Mymodal({ showModal, handleClose, enote, updateNotes }) {
         if (e.target.name === 'category') {
             setCategory(e.target.value)
         }
-        console.log(enote.id)
     }
 
 
     const handleOutClose = (e) => {
         if (e.target.id === 'container') {
-            // updateNotes()
             handleClose()
         }
-        // updateNotes()
     }
     return (
         <div className='fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center backdrop-blur-sm z-10' id="container" onClick={handleOutClose}>
             <div className="p-4 lg:w-1/3">
                 <div className="h-full bg-white bg-opacity-75 px-8 pt-16 pb-16 rounded-lg overflow-hidden text-center relative">
-                    <span className='absolute right-3 top-6 cursor-pointer text-2xl' onClick={handleClose}><AiOutlineCloseCircle /></span>
+                    <span className='absolute right-3 top-6 cursor-pointer text-2xl' onClick={handleClose}><AiOutlineCloseCircle className='text-red-500' /></span>
                     <form>
                         <div className="leading-relaxed mb-3 text-lg text-gray-900 font-medium">
                             <div style={{ verticalAlign: "inherit" }}>
