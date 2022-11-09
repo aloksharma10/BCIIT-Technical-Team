@@ -46,7 +46,7 @@ function Redirect() {
                 <div className="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
                     <div className="leading-relaxed text-lg mb-2">
                         <h2 className="text-3xl font-semibold mb-5 text-gray-800 dark:text-gray-100 md:text-4xl">
-                            Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r dark:from-slate-200 dark:to-red-500 from-black to-red-500">FlashCard App</span>
+                            Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r dark:from-slate-200 dark:to-red-500 from-black to-red-500">FlashCNotes App</span>
                         </h2>
                         <font style={{ verticalAlign: "inherit" }}>
                             <font style={{ verticalAlign: "inherit" }}>Thank you for joining with us!</font>
@@ -56,7 +56,7 @@ function Redirect() {
                     <span className="inline-block h-1 w-10 rounded bg-red-500 my-2"></span>
                     <h2 className="text-gray-900 dark:text-white font-medium title-font tracking-wider text-lg">
                         <font style={{ verticalAlign: "inherit" }}>
-                            <font style={{ verticalAlign: "inherit" }}>CodeXalok</font>
+                            <font style={{ verticalAlign: "inherit" }}>FlashNote</font>
                         </font>
                     </h2>
                 </div>

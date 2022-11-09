@@ -117,7 +117,7 @@ function Login({ login }) {
             theme="light"
           />
           <div className="px-0 lg:pl-4 flex items-center lg:mx-4 cursor-pointer text-3xl font-bold my-5">
-            <Link href="/">Welcome to FlashCard</Link>
+            <Link href="/">Welcome to FlashNotes</Link>
           </div>
           <Link href={'http://localhost:1337/api/connect/google'} >
             <div className='flex cursor-pointer bg-red-100 dark:bg-slate-900 font-medium rounded-lg text-lg justify-center px-5 py-2 text-center"' role="button" >
@@ -148,8 +148,8 @@ function Login({ login }) {
                     <div className="flex items-center h-5">
                     </div>
                     <div className="text-sm">
-                      <p className="text-sm font-light ">
-                        Don’t have an account yet? <Link href="/signup" ><span className="text-red-500 font-medium">Sign up</span></Link>
+                      <p className="text-sm font-light cursor-pointer">
+                        Don’t have an account yet? <Link href="/signup"><span className="text-red-500 font-medium">Sign up</span></Link>
                       </p>
                     </div>
                   </div>

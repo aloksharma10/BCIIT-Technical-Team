@@ -250,14 +250,6 @@ export default function Home({ NotesData }) {
                                     <a className="text-red-500 inline-flex items-center ">
                                         <HiPencilAlt className='text-2xl cursor-pointer mx-2' onClick={() => { setEnotes({ id: item.id, eCategory: item.Category, eCardText: item.CardText }), setModal(true) }} /><ImBin2 className='text-lg cursor-pointer mx-2' onClick={() => { handleDelete(item) }} />
                                     </a>
-                                    {/* <div className="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4">
-                                        <p className="text-gray-800 font-medium mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-                                            Last Updated: {new Date(item.updatedAt).toLocaleString()}
-                                        </p>
-                                        <p className="text-gray-800 font-medium inline-flex items-center leading-none text-sm">
-                                            Created At: {new Date(item.createdAt).toLocaleString()}
-                                        </p>
-                                    </div> */}
                                 </div>
                             </div>
                         )

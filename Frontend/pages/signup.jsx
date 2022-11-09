@@ -143,7 +143,7 @@ function Signup({ login }) {
       {!login && <section className="bg-gray-50 dark:bg-slate-800 min-h-screen">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:py-5">
           <div className="px-0 lg:pl-4 flex items-center lg:mx-4 cursor-pointer text-3xl font-bold my-5">
-            <Link href="/">Welcome to FlashCard</Link>
+            <Link href="/">Welcome to FlashNotes</Link>
           </div>
           <Link href={'http://localhost:1337/api/connect/google'}>
             <div className='flex bg-red-100 dark:bg-slate-900 font-medium rounded-lg text-lg justify-center px-5 py-2 text-center"' role="button" >
