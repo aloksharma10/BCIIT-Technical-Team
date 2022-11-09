@@ -1,7 +1,6 @@
 import Head from 'next/head'
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HiPencilAlt } from 'react-icons/hi';
 import { ImBin2 } from 'react-icons/im';
 import Cookies from 'cookies'
@@ -89,7 +88,7 @@ export default function Home({ NotesData }) {
             let Data = await fetch(`http://localhost:1337/api/categories`, {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer 83244d6bce024a1ad57ba0513f67e34b1345afce123d623acd66af8fa9d19d2ec47abde76f6377562850974d6a4bdf748c9032c5fe12be229a87a26c5435d36fddf6a03d90012f6ec550a9838246926154e9cbb1173d10bb632338d722fcc5c2d6d00f4d02fd12465c37973e932c28d46b43eef4553d54909ec12e3c91b6398b`,
+                    Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ data: myNewNotes })
@@ -142,7 +141,7 @@ export default function Home({ NotesData }) {
             let Data = await fetch(`http://localhost:1337/api/categories/${id}`, {
                 method: 'PUT',
                 headers: {
-                    Authorization: `Bearer 83244d6bce024a1ad57ba0513f67e34b1345afce123d623acd66af8fa9d19d2ec47abde76f6377562850974d6a4bdf748c9032c5fe12be229a87a26c5435d36fddf6a03d90012f6ec550a9838246926154e9cbb1173d10bb632338d722fcc5c2d6d00f4d02fd12465c37973e932c28d46b43eef4553d54909ec12e3c91b6398b`,
+                    Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ data: { Category: category, CardText: text } })
